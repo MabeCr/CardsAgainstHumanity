@@ -6,6 +6,8 @@
  * the judge will pick the best card. That person will receive a point.
  * This may be copyright infringement, but it's not going to be sold
  * or marketed in any way. This is just to see if we can figure it out.
+ *
+ * This is a test comment to see if the VCS works on this project.
  */
 
 import java.io.File;
