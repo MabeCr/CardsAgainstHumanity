@@ -114,6 +114,10 @@ public class Main {
             } while (!playerWins(players));
 
             scanner.close();
+            in.close();
+            clientSocket.close();
+            serverSocket.close();
+
         } catch (IOException e){
             System.err.println("Exception caught when listening on port " + portNumber +
                 " or listening for a connection");
