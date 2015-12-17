@@ -6,7 +6,7 @@ A semi-working game is mostly finished. Users can load a custom card pack (will 
 (12/17/15)
 
 #Contributors
-Chris Mabe
-Jackson Coulter
-Klementina Stojanovska
-Lexie Eagleson
+-Chris Mabe
+-Jackson Coulter
+-Klementina Stojanovska
+-Lexie Eagleson
