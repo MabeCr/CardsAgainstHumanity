@@ -158,9 +158,10 @@ public class Main {
 
         try{
             while (true) {
-                System.out.println("Waiting for answer");
+                System.out.println("");
+                System.out.println("Waiting for answer from other program...");
                 if ((returnString = in.readLine()) != null) {
-                    System.out.println("Input is not null, it is " + returnString);
+                    System.out.println("The judge chose card " + returnString);
                     returnValue = Integer.parseInt(returnString);
                     break;
                 }
