@@ -64,10 +64,18 @@ public class Deck {
     public void setDefaultFiles(){
         cards.clear();
         if(isWhite) {
-            File whiteCards = new File("src\\Cards\\originalWhiteCards.txt");
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // This is set so I can run the code from cmd to test whether or not the sockets are working
+            // To run in the IDE, set the commented out file to be the used one
+            //File whiteCards = new File("src\\Cards\\originalWhiteCards.txt");
+            File whiteCards = new File("Cards\\originalWhiteCards.txt");
             addCards(whiteCards, true);
         } else {
-            File blackCards = new File("src\\Cards\\originalBlackCards.txt");
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // Same for this one
+            // Like above, set the file back to the commented one to use the IDE
+            //File blackCards = new File("src\\Cards\\originalBlackCards.txt");
+            File blackCards = new File("Cards\\originalBlackCards.txt");
             addCards(blackCards, false);
         }
     }
