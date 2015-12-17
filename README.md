@@ -3,7 +3,7 @@ This is our little winter project where we try to recreate the game "Cards Again
 
 #Current Status
 A semi-working game is mostly finished. Users can load a custom card pack (will be able to load more than one in the future), pick a winner from a different client program, and most of the game logic is there. Cards images are created, and a mockup of the online view of the game is also mostly done. Coming together nicely.
-- 12/17/15
+(12/17/15)
 
 #Contributors
 Chris Mabe
