@@ -18,7 +18,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Main {
+public class Server {
 
     public static final boolean white = true;
     public static final boolean black = false;
@@ -46,15 +46,13 @@ public class Main {
             Hand hand1 = new Hand("one", whiteDeck);
             Hand hand2 = new Hand("two", whiteDeck);
             Hand hand3 = new Hand("three", whiteDeck);
-            Hand hand4 = new Hand("four", whiteDeck);
 
-            Hand[] players = new Hand[4];
+            Hand[] players = new Hand[3];
             //Setting this manually for testing
-            playerNumber = 4;
+            playerNumber = 3;
             players[0] = hand1;
             players[1] = hand2;
             players[2] = hand3;
-            players[3] = hand4;
 
             //Get the custom card pack name from the user
             String packName = getPackName(scanner);
@@ -83,7 +81,7 @@ public class Main {
                 System.out.println("");
 
                 //Is only 3, because one person is a judge
-                Card[] choices = new Card[3];
+                Card[] choices = new Card[2];
 
                 for (int i = 0; i < playerNumber; i++) {
                     if (i != judgeId) {

@@ -7,7 +7,6 @@
 public class Hand {
 
     private Card[] playerHand = new Card[7];
-    private boolean isFull;
     private int wins;
     private Deck deck;
     private String handName;
@@ -23,7 +22,6 @@ public class Hand {
         playerHand = new Card[7];
         this.handName = handName;
         this.deck = deck;
-        this.isFull = false;
         this.wins = 0;
         resetHand();
     }
