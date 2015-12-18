@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.Buffer;
 import java.util.Scanner;
 
 public class Server {
@@ -55,7 +56,7 @@ public class Server {
             players[2] = hand3;
 
             //Get the custom card pack name from the user
-            String packName = getPackName(scanner);
+            String packName = getPackName(in);
             System.out.println("");
 
             //Add the custom white and black card to the existing decks
@@ -122,9 +123,20 @@ public class Server {
         }
     }
 
-    public static String getPackName(Scanner scan) {
+    public static String getPackName(BufferedReader in) {
+        String answer = null;
         System.out.print("Please enter a pack name. If you don't want to use one, press enter: ");
-        return scan.nextLine();
+        try{
+            while (true) {
+                if ((answer = in.readLine()) != null) {
+                    System.out.println("The judge chose card " + answer);
+                    break;
+                }
+            }
+        } catch (IOException e){
+            System.out.println("Card pack not recognized");
+        }
+        return answer;
     }
 
     public static void addPacksToDeck(String packName, Deck whiteDeck, Deck blackDeck) {
