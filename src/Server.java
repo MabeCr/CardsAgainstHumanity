@@ -10,13 +10,9 @@
  * This is a test comment to see if the VCS works on this project.
  */
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.Buffer;
 import java.util.Scanner;
 
 public class Server {
@@ -28,13 +24,33 @@ public class Server {
     public static int playerNumber;
 
     public static void main(String[] args) {
-
+        judgeId = 0;
         int portNumber = Integer.parseInt(args[0]);
 
         try(ServerSocket serverSocket = new ServerSocket(portNumber);
-            Socket clientSocket = serverSocket.accept();
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))
+            Socket clientSocketOne = serverSocket.accept();
+            PrintWriter outOne = new PrintWriter(clientSocketOne.getOutputStream(), true);
+
+            Socket clientSocketTwo = serverSocket.accept();
+            PrintWriter outTwo = new PrintWriter(clientSocketTwo.getOutputStream(), true);
+
+            Socket clientSocketThree = serverSocket.accept();
+            PrintWriter outThree = new PrintWriter(clientSocketThree.getOutputStream(), true);
+
+            BufferedReader inOne = new BufferedReader(new InputStreamReader(clientSocketOne.getInputStream()));
+            BufferedReader inTwo = new BufferedReader(new InputStreamReader(clientSocketTwo.getInputStream()));
+            BufferedReader inThree = new BufferedReader(new InputStreamReader(clientSocketThree.getInputStream()))
         ) {
+
+            PrintWriter[] writers = new PrintWriter[3];
+            writers[0] = outOne;
+            writers[1] = outTwo;
+            writers[2] = outThree;
+
+            BufferedReader[] readers = new BufferedReader[3];
+            readers[0] = inOne;
+            readers[1] = inTwo;
+            readers[2] = inThree;
 
 
             //Create basic white and black card decks
@@ -56,7 +72,7 @@ public class Server {
             players[2] = hand3;
 
             //Get the custom card pack name from the user
-            String packName = getPackName(in);
+            String packName = getPackName(inOne, writers);
             System.out.println("");
 
             //Add the custom white and black card to the existing decks
@@ -67,10 +83,10 @@ public class Server {
             blackDeck.shuffle();
 
             //Deal 7 cards to the hands and then print them out to the screen
-            for (Hand h : players) {
-                System.out.println("Player " + h.getHandName());
-                h.dealHand(whiteDeck);
-                h.printHand();
+            for (int i = 0; i < players.length; i++) {
+                System.out.println("Player " + players[i].getHandName());
+                players[i].dealHand(whiteDeck);
+                players[i].printHand(writers[i]);
                 System.out.println("");
             }
 
@@ -82,30 +98,21 @@ public class Server {
                 System.out.println("");
 
                 //Is only 3, because one person is a judge
-                Card[] choices = new Card[2];
-
-                for (int i = 0; i < playerNumber; i++) {
-                    if (i != judgeId) {
-                        if (i > judgeId) {
-                            choices[i - 1] = players[i].playCard(0);
-                        } else
-                            choices[i] = players[i].playCard(0);
-                    }
-                }
+                Card[] choices = getCardChoices(playerNumber, judgeId, players, writers, readers);
 
                 for (Card c : choices) {
-                    if (c.getString() != null)
+                    if (c != null && c.getString() != null)
                         System.out.println(c.getString());
                 }
 
-                int winner = chooseWinner(judgeId, players, in);
+                int winner = chooseWinner(judgeId, players, writers, readers);
                 System.out.println("The winner is: " + winner);
                 System.out.println("");
                 players[winner].handWins();
 
-                for (Hand h : players) {
+                for (Hand h: players) {
                     System.out.println("Player " + h.getHandName() + " has " + h.getWins() + " wins.");
-                    h.printHand();
+                    h.printHandtoConsole();
                     System.out.println("");
                 }
 
@@ -113,8 +120,9 @@ public class Server {
             } while (!playerWins(players));
 
             scanner.close();
-            in.close();
-            clientSocket.close();
+            inOne.close();
+            inTwo.close();
+            clientSocketOne.close();
             serverSocket.close();
 
         } catch (IOException e){
@@ -123,11 +131,12 @@ public class Server {
         }
     }
 
-    public static String getPackName(BufferedReader in) {
+    public static String getPackName(BufferedReader in, PrintWriter[] writer) {
         String answer = null;
-        System.out.print("Please enter a pack name. If you don't want to use one, press enter: ");
+        writer[0].println("Please enter a pack name. If you don't want to use one, press enter: ");
         try{
             while (true) {
+                writer[0].println("enter text");
                 if ((answer = in.readLine()) != null) {
                     System.out.println("The judge chose card " + answer);
                     break;
@@ -160,9 +169,36 @@ public class Server {
         }
     }
 
-    public static int chooseWinner(int judgeId, Hand[] players, BufferedReader in) {
+    public static Card[] getCardChoices(int playerNumber, int judgeId, Hand[] players, PrintWriter[] writers, BufferedReader[] readers){
+        Card[] choices = new Card[playerNumber];
+        String userInput;
+        try {
+            for (int i = 0; i < playerNumber; i++) {
+                if (i != judgeId) {
+                    writers[i].println("Please make your card choice in the form of 1 - 7");
+                    writers[i].println("enter text");
+                    userInput = readers[i].readLine();
+                    if (i > judgeId) {
+                        writers[i].println("enter text");
+                        if (userInput != null) {
+                            choices[i - 1] = players[i].playCard(Integer.parseInt(userInput) - 1);
+                        }
+                    }
+                    else if(userInput != null)
+                        choices[i] = players[i].playCard(Integer.parseInt(userInput) - 1);
+                }
+            }
+        } catch (IOException e){
+            System.out.println("IO Exception");
+        }
+
+        return choices;
+    }
+
+    public static int chooseWinner(int judgeId, Hand[] players, PrintWriter[] writers, BufferedReader[] readers) {
         System.out.println("Player " + players[judgeId].getHandName() + " is the judge.");
-        System.out.print("Please enter your winner by typing 1, 2, or 3: ");
+        writers[judgeId].println("You are the judge.");
+        writers[judgeId].println("Please enter your winner by typing 1 or 2: ");
         String returnString;
         int returnValue;
 
@@ -170,7 +206,8 @@ public class Server {
             while (true) {
                 System.out.println("");
                 System.out.println("Waiting for answer from other program...");
-                if ((returnString = in.readLine()) != null) {
+                writers[judgeId].println("enter text");
+                if ((returnString = readers[judgeId].readLine()) != null) {
                     System.out.println("The judge chose card " + returnString);
                     returnValue = Integer.parseInt(returnString);
                     break;
@@ -179,6 +216,13 @@ public class Server {
         } catch (IOException e){
             System.out.println("Could not receive your input");
             returnValue = 0;
+        }
+        if (judgeId == 1) {
+            if(returnValue == 1)
+                returnValue = 0;
+        }
+        else if(judgeId == 2){
+            returnValue--;
         }
 
         return returnValue;

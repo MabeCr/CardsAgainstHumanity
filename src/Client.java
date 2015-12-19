@@ -18,7 +18,8 @@ public class Client {
 
         String hostName = args[0];
         int portNumber = Integer.parseInt(args[1]);
-        String startStuff;
+        String output;
+        String input;
 
         try(
                 Socket echoSocket = new Socket(hostName, portNumber);
@@ -26,10 +27,15 @@ public class Client {
                 BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
                 BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in))
         ){
-
             while(true){
-                if((startStuff = stdIn.readLine()) != null)
-                    out.println(startStuff);
+                if((input = in.readLine()) != null && input.equals("enter text")){
+                    if((output = stdIn.readLine()) != null)
+                        out.println(output);
+                }
+                else if(input != null)
+                    System.out.println(input);
+
+
             }
 
         } catch (UnknownHostException e){

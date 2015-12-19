@@ -1,3 +1,5 @@
+import java.io.PrintWriter;
+
 /**
  * Created by Chris on 12/13/2015. This class is for a player's hand, which is also sort
  * analogous to a player. Each player has 7 cards in hand at all times, and can do different
@@ -47,7 +49,13 @@ public class Hand {
     /**
      * Prints the hand out to the screen
      */
-    public void printHand(){
+    public void printHand(PrintWriter writer){
+        for(int i = 0; i < 7; i++) {
+            writer.println(playerHand[i].getString());
+        }
+    }
+
+    public void printHandtoConsole(){
         for(int i = 0; i < 7; i++) {
             System.out.println(playerHand[i].getString());
         }
