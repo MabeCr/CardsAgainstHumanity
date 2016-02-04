@@ -8,9 +8,7 @@
  * imagined. Such a damn shame.)
  */
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 
 public class NewServer {
 
@@ -29,12 +27,28 @@ public class NewServer {
             File actions = new File("TextFiles\\actions.txt");
             File data = new File("TextFiles\\game-data.txt");
 
-            //Set up the PrintWriter that will be writing to the control text file
-            PrintWriter toActions = new PrintWriter(actions);
+            //Set up the PrintWriter that will be writing to the data text file
             PrintWriter toData = new PrintWriter(data);
+
+            //Set up the Reader that will be reading in from the actions text file
+            BufferedReader fromActions = new BufferedReader(new FileReader(actions));
+
         } catch (IOException e){
             System.err.println("One or more files were not found. Please try again.");
         }
+
+        //Create the basic white and black decks with no expansions added
+        Deck whiteDeck = new Deck(white);
+        Deck blackDeck = new Deck(black);
+
+        /**
+         *PSEUDO - Create a hand for each player
+         *Search through the data text file for all the lines with a player name
+         *up until there is a period, incrementing on each. Set playerNumber to that
+         *number.
+         *
+         * For now, this is going to be manually set to match the text file
+         */
 
 
     }
