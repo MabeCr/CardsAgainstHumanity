@@ -5,6 +5,9 @@ This is our little winter project where we try to recreate the game "Cards Again
 A semi-working game is mostly finished. Users can load a custom card pack (will be able to load more than one in the future), pick a winner from a different client program, and most of the game logic is there. Cards images are created, and a mockup of the online view of the game is also mostly done. Coming together nicely.
 (12/17/15)
 
+We've decided to scrap the use of sockets and control the game using text files and php. Most of the php is finished, because Jackson is pretty much a baller. The new server shouldn't be all that hard to write, but it's just a little annoying to have to redo it. Nonetheless, progress progress progress.
+(2/4/16)
+
 #Contributors
 -Chris Mabe
 -Jackson Coulter
