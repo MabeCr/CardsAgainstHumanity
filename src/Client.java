@@ -2,6 +2,11 @@
  * Created by Chris on 12/17/2015.
  * This class is used to connect to the main class and operate it. As of now, the date this was created,
  * all it is used for it to choose which card wins the round.
+ *
+ * UPDATE: 2/4/16
+ * THIS CLASS IS NOW OBSOLETE
+ * Due to the fact that we are getting rid of the sockets and using a text file to control the game instead,
+ * this class will not be used. Also such a damn shame.
  */
 
 import java.io.*;

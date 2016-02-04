@@ -1,0 +1,16 @@
+Jackson*|||Card One|||Card Two|||Card Three|||Card Four|||Card Five|||Card Six|||Card Seven|||true
+Chris*|||Card One|||Card Two|||Card Three|||Card Four|||Card Five|||Card Six|||Card Seven|||false
+.
+Jackson 1/7,Chris 2/7|||Jackson|||Black Card Text|||4|||2|||Played One,Played Two,Three,Four
+
+// NOTES
+- Everything in [] is variable
+- Sections are broken up by three bars (|||)
+- Players are separated by from general data by a line with just a period
+- The played cards should be put in a random order BUT for 2 cards the cards that go together should be in order
+  always next to each other
+
+[NAME]*|||[FIRST CARD TEXT]|||[SECOND CARD TEXT]|||...|||[SEVENTH CARD TEXT]|||[NEED TO PLAY BOOLEAN]
+MORE PLAYERS
+.
+[PLAYER] [PLAYER SCORE],[PLAYER2] [PLAYER2 SCORE]|||[CARD CZAR]|||[NUMBER PLAYED]|||[NUMBER PER PERSON]|||[PLAYED ONE],...

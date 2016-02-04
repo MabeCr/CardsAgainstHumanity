@@ -8,6 +8,11 @@
  * or marketed in any way. This is just to see if we can figure it out.
  *
  * This is a test comment to see if the VCS works on this project.
+ *
+ * UPDATE 2/4/16
+ * THIS CLASS IS NOw OBSOLETE
+ * Due to the fact that we have decided to control the game with a text
+ * file, this server is not going to be used now.
  */
 
 import java.io.*;
@@ -138,7 +143,7 @@ public class Server {
             while (true) {
                 writer[0].println("enter text");
                 if ((answer = in.readLine()) != null) {
-                    System.out.println("The judge chose card " + answer);
+                    System.out.println("The card pack chosen was: " + answer);
                     break;
                 }
             }

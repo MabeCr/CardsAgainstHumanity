@@ -1,0 +1,15 @@
+connected Jackson none
+played Jackson 0
+played Jackson 2
+selected Chris 0
+heartbeat Jackson 12341234315
+
+// NOTES
+- The general form of an action should be [ACTION] [PLAYER] [DATA]
+- The list will only be appended too, not removed from so you need to keep track of what line you are on
+- Connected is when a new player joins (no additional data)
+- Played is when a player picks a card to play and the extra data is the index of that card in their hand
+- Selected is when the Card Czar selects a winner and the additional data is the winning index from the played array
+  (will have two selected for pick two cards but they should always go together)
+- heartbeat is how we check if a player is connected still. every 5 seconds another heartbeat is added with a UNIX timestamp
+  on the server, if the player hasn't "heartbeat"-ed in > 10 seconds, remove them from the game
