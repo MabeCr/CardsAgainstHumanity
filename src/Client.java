@@ -21,12 +21,15 @@ public class Client {
         String output;
         String input;
 
+        System.out.println("Attempting to connect to host to host...");
         try(
+
                 Socket echoSocket = new Socket(hostName, portNumber);
                 PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
                 BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in))
         ){
+            System.out.println("Connected to " + hostName);
             while(true){
                 if((input = in.readLine()) != null && input.equals("enter text")){
                     if((output = stdIn.readLine()) != null)
@@ -37,7 +40,6 @@ public class Client {
 
 
             }
-
         } catch (UnknownHostException e){
             System.err.println("Don't know about host " + hostName);
             System.exit(1);
