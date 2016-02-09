@@ -3,6 +3,7 @@ connected Chris none
 played Jackson 0
 played Jackson 2
 selected Chris 0
+connected Lexie none
 heartbeat Jackson 12341234315
 
 // NOTES

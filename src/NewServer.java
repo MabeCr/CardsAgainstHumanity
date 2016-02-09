@@ -38,7 +38,7 @@ public class NewServer {
             BufferedReader fromActions = new BufferedReader(new FileReader(actions));
             BufferedReader fromData = new BufferedReader(new FileReader(data));
 
-            Hand[] players = new Hand[2];
+            Hand[] players = new Hand[3];
             createHandArray(fromActions, players, whiteDeck);
             playerNumber = players.length;
 
@@ -46,6 +46,7 @@ public class NewServer {
                 System.out.println("Player " + players[i].getHandName());
                 players[i].dealHand(whiteDeck);
                 players[i].printHand();
+                System.out.println("__________________________________________________");
                 System.out.println("");
             }
 
@@ -65,13 +66,18 @@ public class NewServer {
         String name;
 
         try{
-            while(((text = in.readLine()) != null) && text.substring(0, 10).equals("connected ")) {
-                nameIndex = text.indexOf(" ", 10);
-                name = text.substring(10, nameIndex);
+            while((text = in.readLine()) != null) {
+                if(text.length() == 0){
 
-                Hand hand = new Hand(name, deck);
-                hands[arrayIndex] = hand;
-                arrayIndex++;
+                }
+                else if(text.substring(0, 2).equals("co")) {
+                    nameIndex = text.indexOf(" ", 10);
+                    name = text.substring(10, nameIndex);
+
+                    Hand hand = new Hand(name, deck);
+                    hands[arrayIndex] = hand;
+                    arrayIndex++;
+                }
             }
         } catch (IOException e){
             System.err.println("Something in your IO got fucked, bruh");
