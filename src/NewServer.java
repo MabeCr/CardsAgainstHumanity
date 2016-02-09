@@ -25,8 +25,8 @@ public class NewServer {
         //Create the basic white and black decks with no expansions added
         Deck whiteDeck = new Deck(white);
         Deck blackDeck = new Deck(black);
-        //Set the files that will be used to control the game
 
+        //Set the files that will be used to control the game
         File actions = new File("TextFiles\\actions.txt");
         File data = new File("TextFiles\\game-data.txt");
 
@@ -65,10 +65,9 @@ public class NewServer {
         String name;
 
         try{
-            while(((text = in.readLine()) != null) && !text.equals(".")) {
-                nameIndex = text.indexOf("*");
-                name = text.substring(0, nameIndex);
-                System.out.println(name);
+            while(((text = in.readLine()) != null) && text.substring(0, 10).equals("connected ")) {
+                nameIndex = text.indexOf(" ", 10);
+                name = text.substring(10, nameIndex);
 
                 Hand hand = new Hand(name, deck);
                 hands[arrayIndex] = hand;

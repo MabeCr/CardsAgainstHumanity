@@ -1,4 +1,5 @@
 connected Jackson none
+connected Chris none
 played Jackson 0
 played Jackson 2
 selected Chris 0

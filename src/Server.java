@@ -175,7 +175,7 @@ public class Server {
     }
 
     public static Card[] getCardChoices(int playerNumber, int judgeId, Hand[] players, PrintWriter[] writers, BufferedReader[] readers){
-        Card[] choices = new Card[playerNumber];
+        Card[] choices = new Card[playerNumber - 1];
         String userInput;
         try {
             for (int i = 0; i < playerNumber; i++) {
