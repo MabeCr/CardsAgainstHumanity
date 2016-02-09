@@ -49,13 +49,7 @@ public class Hand {
     /**
      * Prints the hand out to the screen
      */
-    public void printHand(PrintWriter writer){
-        for(int i = 0; i < 7; i++) {
-            writer.println(playerHand[i].getString());
-        }
-    }
-
-    public void printHandtoConsole(){
+    public void printHand(){
         for(int i = 0; i < 7; i++) {
             System.out.println(playerHand[i].getString());
         }

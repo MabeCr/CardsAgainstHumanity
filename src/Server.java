@@ -91,7 +91,7 @@ public class Server {
             for (int i = 0; i < players.length; i++) {
                 System.out.println("Player " + players[i].getHandName());
                 players[i].dealHand(whiteDeck);
-                players[i].printHand(writers[i]);
+                players[i].printHand();
                 System.out.println("");
             }
 
@@ -117,7 +117,7 @@ public class Server {
 
                 for (Hand h: players) {
                     System.out.println("Player " + h.getHandName() + " has " + h.getWins() + " wins.");
-                    h.printHandtoConsole();
+                    h.printHand();
                     System.out.println("");
                 }
 

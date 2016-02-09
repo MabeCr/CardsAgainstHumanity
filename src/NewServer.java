@@ -22,34 +22,60 @@ public class NewServer {
         //Set the judge ID to the first player
         judgeId = 0;
 
+        //Create the basic white and black decks with no expansions added
+        Deck whiteDeck = new Deck(white);
+        Deck blackDeck = new Deck(black);
         //Set the files that will be used to control the game
-        try {
-            File actions = new File("TextFiles\\actions.txt");
-            File data = new File("TextFiles\\game-data.txt");
 
+        File actions = new File("TextFiles\\actions.txt");
+        File data = new File("TextFiles\\game-data.txt");
+
+        try {
             //Set up the PrintWriter that will be writing to the data text file
-            PrintWriter toData = new PrintWriter(data);
+            //PrintWriter toData = new PrintWriter(new BufferedWriter(new FileWriter(data)));
 
             //Set up the Reader that will be reading in from the actions text file
             BufferedReader fromActions = new BufferedReader(new FileReader(actions));
+            BufferedReader fromData = new BufferedReader(new FileReader(data));
+
+            Hand[] players = new Hand[2];
+            createHandArray(fromActions, players, whiteDeck);
+            playerNumber = players.length;
+
+            for (int i = 0; i < playerNumber; i++) {
+                System.out.println("Player " + players[i].getHandName());
+                players[i].dealHand(whiteDeck);
+                players[i].printHand();
+                System.out.println("");
+            }
 
         } catch (IOException e){
             System.err.println("One or more files were not found. Please try again.");
         }
 
-        //Create the basic white and black decks with no expansions added
-        Deck whiteDeck = new Deck(white);
-        Deck blackDeck = new Deck(black);
-
-        /**
-         *PSEUDO - Create a hand for each player
-         *Search through the data text file for all the lines with a player name
-         *up until there is a period, incrementing on each. Set playerNumber to that
-         *number.
-         *
-         * For now, this is going to be manually set to match the text file
-         */
 
 
+    }
+
+    public static void createHandArray(BufferedReader in, Hand[] hands, Deck deck){
+        String text;
+        int nameIndex;
+        int arrayIndex = 0;
+
+        String name;
+
+        try{
+            while(((text = in.readLine()) != null) && !text.equals(".")) {
+                nameIndex = text.indexOf("*");
+                name = text.substring(0, nameIndex);
+                System.out.println(name);
+
+                Hand hand = new Hand(name, deck);
+                hands[arrayIndex] = hand;
+                arrayIndex++;
+            }
+        } catch (IOException e){
+            System.err.println("Something in your IO got fucked, bruh");
+        }
     }
 }
